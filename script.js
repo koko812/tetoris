@@ -1,3 +1,6 @@
+// sound の取得に関しては，ディレクトリを分けるか，mp3 拡張子で判断するのが良さそう
+// for 文で回すと，それぞれの音源を index で指定することになって耳づらいが，
+// やっぱり処理が楽なのでそっちのほうがいいかもしれないという話
 
 const bgm = document.createElement("audio");
 const dropped_snd = document.createElement("audio");
@@ -53,6 +56,8 @@ const showBoard = () => {
         }
     }
 }
+
+
 
 const blockShapes = [
     [0, []],
@@ -151,47 +156,47 @@ const ClearLine = () => {
     }
 }
 
-window.onload = () => {
-    flag = 0;
-    CreateNewBlock()
-    setInterval(() => {
-        if (gameover) {
-            bgm.pause()
-            if (flag === 0) {
-                flag = 1;
-                gameover_snd.play()
-            }
-            return;
-        }
-        if (!move(0, 1, 0)) {
-            console.log('newblock')
-            dropped_snd.play()
-            CreateNewBlock();
-        }
-    }, 200)
 
-    document.onkeydown = (e) => {
-        switch (e.key) {
-            case "ArrowLeft":
-                move(-1, 0, 0)
-                break;
-            case "ArrowRight":
-                move(1, 0, 0)
-                break;
-            case "ArrowUp":
-                move(0, -1, 0)
-                break;
-            case "ArrowDown":
-                if (!move(0, 1, 0)) {
-                    CreateNewBlock();
-                }
-                break;
-            case " ":
-                bgm.play();
-                move(0, 0, 1)
-                break;
-            default:
-                break;
+CreateNewBlock() 
+    setInterval(() => {
+    if (gameover) {
+        bgm.pause()
+        if (flag === 0) {
+            flag = 1;
+            gameover_snd.play()
         }
+        return;
+    }
+    if (!move(0, 1, 0)) {
+        console.log('iiiii')
+        dropped_snd.play()
+        CreateNewBlock();
+    }
+}, 200)
+move(1, 2, 3)
+
+
+document.onkeydown = (e) => {
+    switch (e.key) {
+        case "ArrowLeft":
+            move(-1, 0, 0)
+            break;
+        case "ArrowRight":
+            move(1, 0, 0)
+            break;
+        case "ArrowUp":
+            move(0, -1, 0)
+            break;
+        case "ArrowDown":
+            if (!move(0, 1, 0)) {
+                CreateNewBlock();
+            }
+            break;
+        case " ":
+            bgm.play();
+            move(0, 0, 1)
+            break;
+        default:
+            break;
     }
 }
